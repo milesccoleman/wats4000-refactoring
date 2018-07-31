@@ -6,39 +6,21 @@
       <router-link v-bind:to="{ name: 'Forecast', params: { cityId: $route.params.cityId } }">View 5-Day Forecast</router-link>
     </p>
     <div v-if="weatherData && errors.length===0">
-
-      <!-- TODO: Make weather summary be in a child component. -->
-      <div v-for="weatherSummary in weatherData.weather" class="weatherSummary">
-          <img v-bind:src="'http://openweathermap.org/img/w/' + weatherSummary.icon + '.png'" v-bind:alt="weatherSummary.main">
-          <br>
-          <b>{{ weatherSummary.main }}</b>
-      </div>
-      <!-- TODO: Make dl of weather data be in a child component. -->
-      <dl>
-          <dt>Current Temp</dt>
-          <dd>{{ weatherData.main.temp }}&deg;F</dd>
-          <dt>Humidity</dt>
-          <dd>{{ weatherData.main.humidity }}%</dd>
-          <dt>High</dt>
-          <dd>{{ weatherData.main.temp_max }}&deg;F</dd>
-          <dt>Low</dt>
-          <dd>{{ weatherData.main.temp_min }}&deg;F</dd>
-      </dl>
-    </div>
-    <div v-else-if="errors.length > 0">
-      <h2>There was an error fetching weather data.</h2>
-      <ul class="errors">
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
+     <weather-summary v-bind:weatherData="weatherData.weather"></weather-summary>
+     <weather-data v-bind:weatherData="weatherData.main"></weather-data>
     </div>
     <div v-else>
       <h2>Loading...</h2>
     </div>
+   <errors-data v-bind:errorsData="errors"></errors-data>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import {API} from '@/api';
+import WeatherSummary from '@/components/WeatherSummary';
+import WeatherData from '@/components/WeatherData';
+import ErrorsData from '@/components/ErrorsList';
 
 export default {
   name: 'CurrentWeather',
@@ -50,12 +32,9 @@ export default {
     }
   },
   created () {
-    // TODO: Improve base config for API
-    axios.get('//api.openweathermap.org/data/2.5/weather', {
-      params: {
-          id: this.$route.params.cityId,
-          units: 'imperial',
-          APPID: 'YOUR_APPID_HERE'
+    API.get('weather', {
+        params: {
+          id: this.$route.params.cityId
       }
     })
     .then(response => {
@@ -64,6 +43,11 @@ export default {
     .catch(error => {
       this.errors.push(error)
     });
+  },
+  components: {
+    'weather-summary': WeatherSummary,
+    'weather-data': WeatherData,
+    'error-list': ErrorsData
   }
 }
 </script>

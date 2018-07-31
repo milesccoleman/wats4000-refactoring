@@ -31,7 +31,7 @@ body {
   padding: 0;
   background: #fff;
 }
-/* dl {
+dl {
   padding: 5px;
   background: #e8e8e8;
 }
@@ -49,5 +49,5 @@ dd {
 }
 dt::after {
   content: ":";
-} */
+}
 </style>
