@@ -1,8 +1,8 @@
 <template>
-	<div v-if="errorsData.length > 0">
+	<div v-if="errorList.length > 0">
     <h2>There was an error fetching weather data.</h2>
       <ul class="errors">
-        <li v-for="error in errorsData">{{ error }}</li>
+        <li v-for="error in errorList">{{ error }}</li>
       </ul>
     </div>
   </div>
@@ -10,14 +10,14 @@
 
 <script>
 export default {
-  name: 'ErrorsData',
+  name: 'ErrorList',
   data () {
     return {
 
     }
   },
   props: {
-  	errorsData: []
+  	errorList: []
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div>
     <h2>Five Day Hourly Forecast <span v-if="weatherData"> for {{ weatherData.city.name }}, {{weatherData.city.country }}</span></h2>
     <p>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>
       <router-link v-bind:to="{ name: 'CurrentWeather', params: { cityId: $route.params.cityId } }">Current Weather <span v-if="weatherData"> for {{ weatherData.city.name }}, {{weatherData.city.country }}</span></router-link>
     </p>
 
@@ -24,7 +24,7 @@
 import {API} from '@/api';
 import WeatherSummary from '@/components/WeatherSummary';
 import WeatherData from '@/components/WeatherData';
-import ErrorsData from '@/components/ErrorsList';
+import ErrorList from '@/components/ErrorList';
 
 export default {
   name: 'Forecast',
@@ -53,7 +53,6 @@ export default {
       let date = new Date(timestamp * 1000);
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      //let weekday = date.getDay();
       let daynum = date.getDate();
       let month = date.getMonth();
 
@@ -67,14 +66,13 @@ export default {
       } else if (hour < 12) {
         hour = hour + 'AM';
       }
-      //let year = date.getFullYear();
       return `${ months[month] } ${ daynum } @ ${ hour }`;
     }
   },
   components: {
     'weather-summary': WeatherSummary,
     'weather-data': WeatherData,
-    'error-list': ErrorsData
+    'error-list': ErrorList
   }
 }
 </script>

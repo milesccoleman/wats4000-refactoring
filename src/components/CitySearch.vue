@@ -26,7 +26,7 @@
 import {API} from '@/api';
 import WeatherSummary from '@/components/WeatherSummary';
 import WeatherData from '@/components/WeatherData';
-import ErrorsData from '@/components/ErrorsList';
+import ErrorList from '@/components/ErrorList';
 
 export default {
   name: 'CitySearch',
@@ -55,7 +55,7 @@ export default {
   components: {
     'weather-summary': WeatherSummary,
     'weather-data': WeatherData,
-    'error-list': ErrorsData
+    'error-list': ErrorList
   }
 }
 </script>
